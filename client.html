@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+</head>
+
+<body>
+  <div id='l'></div>
+</body>
+
+<script>
+  var l = document.getElementById('l');
+  var log = function (m) {
+    var i = document.createElement('li');
+    i.innerText = new Date().toISOString() + ' ' + m;
+    l.appendChild(i);
+  }
+  log('opening websocket connection');
+  // var s = new WebSocket('ws://localhost:3001');
+  // var s = new WebSocket('wss://172.16.94.196:3001')
+  var s = new WebSocket('ws://172.16.95.100:3001')
+  s.addEventListener('error',function (m) { log("error"); });
+  s.addEventListener('open',function (m) { log("websocket connection open"); s.send('hello') });
+  s.addEventListener('message',function (m) { log(m.data); });
+</script>
+
+</html>
